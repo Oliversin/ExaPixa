@@ -70,9 +70,9 @@ function draw() {
 
 		
 		ecuaPPP(piPP, newPPF);
-		/*ecuaDDA(piDDA,newDDAF);
+		ecuaDDA(piDDA,newDDAF);
 		ecuaDDA(newDDAF,piDDA);
-		ecuaBH(piBH,newBHF);*/
+		ecuaBH(piBH,newBHF);
 		console.log(piPP.x+" AND piPP Y: "+piPP.y)
 		console.log("xp: "+xp+" AND yp: "+yp)
 		console.log("step: "+step)
@@ -99,7 +99,7 @@ function ecuaPPP(p1,p2){
     x = p1.x;
     y = p1.y;
     // Tomar el intervalo del eje X y determinar Y    
-    while (x < (p2.x)) {
+    while (x < (p2.x + 1)) {
         //Dibujar un pixel en la posición X, Y
         point(x, p1.y)
         x++;
@@ -167,6 +167,13 @@ function ecuaDDA(p1, p2) {
 	xi = dx / p;
     yi = dy / p;
 
+    /*if (p1.x>= p2.x) {
+		xi*=(-1);
+	}
+	if(p1.y>=p2.y)
+       yi*=(-1);
+       x=p1.x;
+       y=p1.y;*/
 
 
 	for(k = 0;k < p;k++){
