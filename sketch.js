@@ -5,13 +5,14 @@ let partes,angulo,step,xp,yp,pPP,pDDA,pBH;
 let diametro = 200;
 
 let i;
+let newPPF,newDDAF,newBHF;
+let testpI,testpF;
 
+let contCirculo=0;
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
-	piPP = {x: windowWidth/4, y:400};
-	piDDA = {x: (windowWidth/4)*2, y:400};
-	piBH = {x: (windowWidth/4)*3, y:400};
+	
 	console.log(windowWidth)
 	input = createInput();
 	input.position(windowWidth/2-150, 65);
@@ -31,31 +32,80 @@ function setup() {
 	pDDA = {x:0,y:0};
 	pBH = {x:0,y:0};
 
-	circle(piPP.x, piPP.y,diametro);
-	circle(piDDA.x, piDDA.y,diametro);
-	circle(piBH.x, piBH.y,diametro);
+	frameRate(30);
+
+
+
+	/*testpI = {x:0,y:0};
+	testpF = {x:windowWidth/2,y:200};*/
 }
 
 function draw() {
-	xp = Math.floor(diametro/2 * cos(angulo));
-	yp = Math.floor(diametro/2 * sin(angulo));
+	
 
+	/*testpI = {x:0,y:0};
+	testpF = {x:windowWidth/2,y:200};
+	ecuaPP(testpI, testpF);*/
 
 
 	if(angulo<radians(360) && partes >=2){
+		piPP = {x: windowWidth/4, y:400};
+		piDDA = {x: (windowWidth/4)*2, y:400};
+		piBH = {x: (windowWidth/4)*3, y:400};
+		if (contCirculo<1) {
+			circle(piPP.x, piPP.y,diametro);
+			circle(piDDA.x, piDDA.y,diametro);
+			circle(piBH.x, piBH.y,diametro);
+		}
+		contCirculo++;
+		xp = Math.floor(diametro/2 * cos(angulo));
+		yp = Math.floor(diametro/2 * sin(angulo));
+		newPPF = {x:Math.floor(piPP.x+xp),y:Math.floor(piPP.y+yp)};
+		newDDAF = {x:Math.floor(piDDA.x+xp),y:Math.floor(piDDA.y+yp)};
+
+		newBHF = {x:Math.floor(piBH.x+xp),y:Math.floor(piBH.y+yp)};
+		console.log("new P X: "+newPPF.x+"and "+newPPF.y);
+		/*line(piDDA.x,piDDA.y,piDDA.x+xp,piDDA.y+yp);*/
+		/*line(piBH.x,piBH.y,piBH.x+xp,piBH.y+yp)*/;
+
+		
+		ecuaPPP(piPP, newPPF);
+		/*ecuaDDA(piDDA,newDDAF);
+		ecuaDDA(newDDAF,piDDA);
+		ecuaBH(piBH,newBHF);*/
+		console.log(piPP.x+" AND piPP Y: "+piPP.y)
 		console.log("xp: "+xp+" AND yp: "+yp)
 		console.log("step: "+step)
 		console.log(radians(360))
 		console.log("angulo: "+angulo)
 		console.log("partes: "+ partes)
-		line(piPP.x,piPP.y,piPP.x+xp,piPP.y+yp);
-		line(piDDA.x,piDDA.y,piDDA.x+xp,piDDA.y+yp);
-		line(piBH.x,piBH.y,piBH.x+xp,piBH.y+yp);
+		//line(piPP.x,piPP.y,piPP.x+xp,piPP.y+yp);
+		
 		console.log(piPP.x)
 		angulo+= step;
 
 	}
 	
+}
+function ecuaPPP(p1,p2){
+	var dx = p2.x - p1.x;
+	var dy = p2.y - p1.y;
+    let x;
+    let m, b, y;
+    // Calcular la pendiente y la constante b
+    m = dy / dx;
+    b = p1.y - m * p1.x;
+
+    x = p1.x;
+    y = p1.y;
+    // Tomar el intervalo del eje X y determinar Y    
+    while (x < (p2.x)) {
+        //Dibujar un pixel en la posición X, Y
+        point(x, p1.y)
+        x++;
+        y = m * x + b; /* Ecuación punto pendiente de la recta */
+    }
+    
 }
 
 function ecuaPP(p1,p2) {
@@ -116,6 +166,8 @@ function ecuaDDA(p1, p2) {
 
 	xi = dx / p;
     yi = dy / p;
+
+
 
 	for(k = 0;k < p;k++){
 		x += xi;
@@ -192,9 +244,13 @@ function ecuaBH(p1, p2){
 
 function greet() {
 	background('white');
-	circle(piPP.x, piPP.y,diametro);
+	contCirculo =0;
+	piPP = {x: windowWidth/4, y:400};
+	piDDA = {x: (windowWidth/4)*2, y:400};
+	piBH = {x: (windowWidth/4)*3, y:400};
+	/*circle(piPP.x, piPP.y,diametro);
 	circle(piDDA.x, piDDA.y,diametro);
-	circle(piBH.x, piBH.y,diametro);
+	circle(piBH.x, piBH.y,diametro);*/
 	partes = input.value();
 	step = radians(360/partes);
 	angulo= 0;
