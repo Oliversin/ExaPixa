@@ -25,6 +25,7 @@ function setup() {
 	greeting.position(windowWidth/2-150, 0);
 	
 
+
 	/*partes = 0;*/
 	/*angulo = 0;*/
 	/*step = radians(360/partes);*/
@@ -251,10 +252,15 @@ function ecuaBH(p1, p2){
 
 function greet() {
 	background('white');
+
 	contCirculo =0;
 	piPP = {x: windowWidth/4, y:400};
 	piDDA = {x: (windowWidth/4)*2, y:400};
 	piBH = {x: (windowWidth/4)*3, y:400};
+
+	text('Punto Pendiente', windowWidth/4-30, 250);
+	text('DDA', (windowWidth/4*2)-30, 250);
+	text('Bresenham', (windowWidth/4)*3-30, 250);
 	/*circle(piPP.x, piPP.y,diametro);
 	circle(piDDA.x, piDDA.y,diametro);
 	circle(piBH.x, piBH.y,diametro);*/
